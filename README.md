@@ -49,6 +49,6 @@ jump.png generated, total 30 images packed!
 # Images folder
 ![](https://github.com/kruglinski/texpacker/blob/master/example/folder.png)
 
-# Packed texture
+# Generated sprite sheet
 
 ![](https://github.com/kruglinski/texpacker/blob/master/example/jump.png)
