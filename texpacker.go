@@ -98,9 +98,10 @@ func main() {
 		return
 	}
 
-	rows := int(math.Sqrt(float64(len(paths))))
+	file_count := len(paths)
+	rows := int(math.Ceil(math.Sqrt(float64(file_count))))
 	cols := rows
-	if rows*cols < len(paths) {
+	if rows*cols < file_count {
 		rows += 1
 	}
 
@@ -110,6 +111,7 @@ func main() {
 	rect := image.Rect(0, 0, sheet_width, sheet_height)
 	img := image.NewRGBA(rect)
 	img_count := 0
+main_loop:
 	for i := 0; i < rows; i++ {
 		for j := 0; j < cols; j++ {
 			fmt.Println("adding...", paths[img_count])
@@ -124,6 +126,11 @@ func main() {
 			draw.Draw(img, grid_rect, cell_image, image.ZP, draw.Src)
 
 			img_count++
+
+			if img_count == file_count {
+				break main_loop
+			}
+
 		}
 	}
 
