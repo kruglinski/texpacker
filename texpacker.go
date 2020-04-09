@@ -99,8 +99,9 @@ func main() {
 	}
 
 	file_count := len(paths)
-	rows := int(math.Ceil(math.Sqrt(float64(file_count))))
-	cols := rows
+	r := math.Sqrt(float64(file_count))
+	cols := int(r)
+	rows := int(math.Ceil(r))
 	if rows*cols < file_count {
 		rows += 1
 	}
