@@ -12,6 +12,10 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+
+	_ "golang.org/x/image/bmp"
+	_ "golang.org/x/image/tiff"
+	_ "golang.org/x/image/webp"
 )
 
 func image_info(name string) (image_width int, image_height int, image_type string, err error) {
