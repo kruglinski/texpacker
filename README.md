@@ -1,5 +1,5 @@
 # texpacker
-A texture packer writen in golang
+A texture packer writen in golang. supports jpg, bmp, tiff, webp and png for input formats, and png for output format.
 
 <pre>
 Usage of texpacker.exe:
