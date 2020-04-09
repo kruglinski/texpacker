@@ -43,3 +43,10 @@ adding... jump\0029.png
 adding... jump\0030.png
 jump.png generated, total 30 images packed!
 </pre>
+
+# Images folder
+![](https://github.com/kruglinski/texpacker/blob/master/example/folder.png)
+
+# Packed texture
+
+![](https://github.com/kruglinski/texpacker/blob/master/example/jump.png)
