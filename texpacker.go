@@ -77,16 +77,7 @@ func main() {
 
 	defer out_fd.Close()
 
-	var paths []string
-	err = filepath.Walk(in_folder, func(path string, info os.FileInfo, err error) error {
-		if info.IsDir() {
-			return nil
-		}
-
-		paths = append(paths, path)
-		return nil
-	})
-
+	paths, err := filepath.Glob(in_folder + string(filepath.Separator) + "*")
 	if err != nil {
 		fmt.Println("[-]", err)
 		return
@@ -112,26 +103,27 @@ func main() {
 	rect := image.Rect(0, 0, sheet_width, sheet_height)
 	img := image.NewRGBA(rect)
 	img_count := 0
+	skip_count := 0
 main_loop:
 	for i := 0; i < rows; i++ {
 		for j := 0; j < cols; j++ {
-			fmt.Println("adding...", paths[img_count])
+			if img_count == file_count {
+				break main_loop
+			}
+
+			fmt.Println("adding...", img_count, paths[img_count])
 			cell_image, err := image_load(paths[img_count])
 			if err != nil {
-				fmt.Println("[-]", err)
-				defer os.Remove(out_file)
-				return
+				fmt.Println("    [-]", err)
+				img_count++
+				skip_count++
+				continue
 			}
 
 			grid_rect := image.Rect(j*image_width, i*image_height, j*image_width+image_width, i*image_height+image_height)
 			draw.Draw(img, grid_rect, cell_image, image.ZP, draw.Src)
 
 			img_count++
-
-			if img_count == file_count {
-				break main_loop
-			}
-
 		}
 	}
 
@@ -140,6 +132,6 @@ main_loop:
 		fmt.Println("[-]", err)
 		defer os.Remove(out_file)
 	} else {
-		fmt.Println(out_file, "generated, total", img_count, "images packed!")
+		fmt.Println(out_file, "generated, total", img_count-skip_count, "images packed!")
 	}
 }
